@@ -45,7 +45,7 @@ def register_decision_tree_learning_method(method_name, method_class):
 # themselves with the current module as well
 try:
     if os.path.exists('ai_assignments/search/adversarial'):
-        from ai_assignements2 import ai_assignments
+        pass
 except Exception as se:
     # print all other exceptions (syntax errors, etc ...)
     print('#' * 40)
@@ -56,7 +56,7 @@ except Exception as se:
 
 try:
     if os.path.exists('ai_assignments/reinforcement_learning'):
-        import ai_assignements2.ai_assignments.reinforcement_learning
+        pass
 except Exception as se:
     # print all other exceptions (syntax errors, etc ...)
     print('#' * 40)
@@ -67,7 +67,7 @@ except Exception as se:
 
 try:
     if os.path.exists('ai_assignments/decision_tree'):
-        import ai_assignements2.ai_assignments.decision_tree
+        pass
 except Exception as se:
     # print all other exceptions (syntax errors, etc ...)
     print('#' * 40)
@@ -85,7 +85,7 @@ except Exception as se:
 # as currently there are only two modules (student impls, and reference impls ...)
 try:
     if os.path.exists('ai_assignments/reference_implementations/adversarial'):
-        import ai_assignements2.ai_assignments.reference_implementations.adversarial
+        pass
 except Exception as se:
     # print all other exceptions (syntax errors, etc ...)
     print('#' * 40)
@@ -96,7 +96,7 @@ except Exception as se:
 
 try:
     if os.path.exists('ai_assignments/reference_implementations/reinforcement_learning'):
-        import ai_assignements2.ai_assignments.reference_implementations.reinforcement_learning
+        pass
 except Exception as se:
     # print all other exceptions (syntax errors, etc ...)
     print('#' * 40)
@@ -107,7 +107,7 @@ except Exception as se:
 
 try:
     if os.path.exists('ai_assignments/reference_implementations/decision_tree'):
-        import ai_assignements2.ai_assignments.reference_implementations.decision_tree
+        pass
 except Exception as se:
     # print all other exceptions (syntax errors, etc ...)
     print('#' * 40)

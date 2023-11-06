@@ -1,5 +1,5 @@
-from ai_assignements2 import ai_assignments
-from ai_assignements2.ai_assignments.utils import plot_field_and_costs
+import ai_assignments
+from ai_assignments.utils.visualization import plot_field_and_costs
 import argparse
 import textwrap
 import os

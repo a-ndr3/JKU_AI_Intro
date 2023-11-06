@@ -1,4 +1,4 @@
-from ai_assignements2 import ai_assignments
+import ai_assignments
 import argparse
 import textwrap
 import hashlib
