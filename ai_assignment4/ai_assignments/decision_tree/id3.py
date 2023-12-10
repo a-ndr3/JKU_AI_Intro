@@ -29,10 +29,9 @@ class DecisionTreeNode(DecisionTreeNodeBase):
         for f_idx in range(nr_features):
             idx_sort = self.features[:, f_idx].argsort()
             sorted_features = self.features[idx_sort, :]
-            sorted_labels = self.labels[idx_sort]
 
             for i in range(1, nr_samples):
-                if sorted_features[i, f_idx] != sorted_features[i - 1, f_idx] and sorted_labels[i] != sorted_labels[i - 1]:
+                if sorted_features[i, f_idx] != sorted_features[i - 1, f_idx]:
                     split_at = (sorted_features[i, f_idx] + sorted_features[i - 1, f_idx]) / 2
                     split_points.append((f_idx, split_at))
 
@@ -40,8 +39,8 @@ class DecisionTreeNode(DecisionTreeNodeBase):
 
     def get_optimal_split_point(self):
         split_feature, split_point = None, None
-        max_info_gain = -np.inf
 
+        max_info_gain = -np.inf
         all_possible_splits = self.get_all_possible_split_points()
 
         for f_idx, point in all_possible_splits:
@@ -68,22 +67,26 @@ class DecisionTreeNode(DecisionTreeNodeBase):
         return e_data - (weight_left * e_left + weight_right * e_right)
 
     def split(self):
-        unique_labels = unique_unsorted(self.labels)
+        unique_labels = set(self.labels)
         if len(unique_labels) == 1:
-            self.label = unique_labels[0]
+            self.label = unique_labels.pop()
             return
 
         split_feature, split_point = self.get_optimal_split_point()
 
         if split_feature is not None and split_point is not None:
-            left_indices = self.features[:, split_feature] <= split_point
-            right_indices = self.features[:, split_feature] > split_point
+            self.split_feature = split_feature
+            self.split_point = split_point
 
-            left_features, left_labels = self.features[left_indices], self.labels[left_indices]
-            right_features, right_labels = self.features[right_indices], self.labels[right_indices]
+            left_mask = self.features[:, split_feature] <= split_point
 
-            self.left_child = DecisionTreeNode(left_features, left_labels)
-            self.right_child = DecisionTreeNode(right_features, right_labels)
+            self.left_child, self.right_child = [
+                DecisionTreeNode(self.features[mask], self.labels[mask])
+                for mask in [left_mask, ~left_mask]
+            ]
+
+            self.left_child.split()
+            self.right_child.split()
 
 
 class ID3():
